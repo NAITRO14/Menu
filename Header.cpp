@@ -1,4 +1,4 @@
-#include "Header.h"
+﻿#include "Header.h"
 vector<card*> cards;
 
 inline void open_file(Fl_Widget* w, void* data)
@@ -89,7 +89,21 @@ void card::del_card()
 
 void card::repos(int _x, int _y)
 {
-	cardBody->resize(_x, _y, 100, 50);
+	x -= 110;
+	if (x <= 0)
+	{
+		x = 560;
+		y -= 60;
+
+		cardBody->resize(x, y, 100, 50);
+
+	}
+	else
+	{
+
+		cardBody->resize(x, y, 100, 50);
+	}
+
 }
 
 Fl_Button* card::get_body()
@@ -99,7 +113,6 @@ Fl_Button* card::get_body()
 
 void cardBut::del()
 {
-
 	card::cardsCount -= 1;
 	card::pos_minus();
 	for (short i = 0; i < cards.size(); i++)
@@ -111,32 +124,8 @@ void cardBut::del()
 
 			for (short j = i+1; j < cards.size(); j++)
 			{	
-				short _x = cards[j]->x;
-				short _y = cards[j]->y;
-
-				_x -= 110;
-				if (_x <= 0)
-				{
-					_x = 560;
-					cards[j]->x = 560;
-					cards[j]->y -= 60;
-
-					_y -= 60;
-
-					cards[j]->repos(_x, _y);
-
-				}
-				else
-				{
-					cards[j]->x -= 110;
-
-					cards[j]->repos(_x, _y);
-				}
-
+				cards[j]->repos(1, 1);
 			}
-
-			
-
 
 			cards.erase(cards.begin() + i);
 			break;

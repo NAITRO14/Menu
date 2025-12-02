@@ -1,27 +1,10 @@
-#pragma once
+п»ї#pragma once
 #include "includes.h"
-//тут опианны классы и структуры
+#include "structs.h"
+//С‚СѓС‚ РѕРїРёР°РЅРЅС‹ РєР»Р°СЃСЃС‹ Рё СЃС‚СЂСѓРєС‚СѓСЂС‹
 
 class card;
 extern vector<card*> cards;
-
-struct helpData
-{
-	Fl_Input* path;
-	Fl_Input* name;
-};
-extern helpData Data;
-
-
-
-struct menues
-{
-	Fl_Group* newFile;
-	Fl_Group* mainWin;
-
-};
-extern menues mens;
-
 
 class cardBut : public Fl_Button
 {

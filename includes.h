@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include <windows.h>
 #include <FL/Fl.H>
@@ -8,9 +8,12 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Widget.H>
+#include <fstream>
 #include <thread>
 #include <vector>
 
+
 using namespace std;
+
 
 
