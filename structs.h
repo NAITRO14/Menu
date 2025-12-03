@@ -1,14 +1,15 @@
 #pragma once
 #include "includes.h"
+#include "widgetsClasses.h"
 
 struct helpData
 {
 	Fl_Input* path;
 	Fl_Input* name;
 
-	Fl_Box* alrt_path;
-	Fl_Box* alrt_name;
-	Fl_Box* alrt_NoFile;
+	al_box* alrt_path;
+	al_box* alrt_name;
+	al_box* alrt_NoFile;
 };
 extern helpData Data;
 

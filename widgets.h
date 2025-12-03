@@ -15,8 +15,15 @@ inline void newFile()
 	Fl_Input* inp_path = new Fl_Input(300, 250, 200, 50, "Путь к файлу");
 	Fl_Input* inp_name = new Fl_Input(300, 310, 200, 50, "Название карточки");
 
-	Fl_Button* Do = new Fl_Button(530, 270, 100, 50, "Создать");
-	Fl_Button* back = new Fl_Button(10, 540, 100, 50, "Назад");
+	inp_path->when(FL_WHEN_ENTER_KEY);
+	inp_path->callback(createCard, nullptr);
+
+	inp_name->when(FL_WHEN_ENTER_KEY);
+	inp_name->callback(createCard, nullptr);
+
+
+	button* Do = new button(530, 270, 100, 50, "Создать");
+	button* back = new button(10, 540, 100, 50, "Назад");
 
 	Data.path = inp_path;
 	Data.name = inp_name;
@@ -33,7 +40,7 @@ inline void mainWin()
 {
 	Fl_Group* mW = new Fl_Group(0, 0, 800, 600);
 
-	Fl_Button* New = new Fl_Button(675, 10, 120, 50, "Создать . . .");
+	plus_button* New = new plus_button(760, 10, 75, 30, "+\t  ");
 	New->callback(showNewMenu, nullptr);
 
 
@@ -44,25 +51,13 @@ inline void mainWin()
 
 inline void alertsBoxes()
 {
-	Fl_Box* al_box_path = new Fl_Box(150, 30, 500, 70, "Укажите путь!");
-	al_box_path->labelsize(20);
-	al_box_path->box(FL_UP_BOX);
-	al_box_path->color(FL_RED);
-	al_box_path->hide();
+	al_box* al_box_path = new al_box(150, 30, 500, 70, "Укажите путь!");
 	Data.alrt_path = al_box_path;
 
-	Fl_Box* al_box_name = new Fl_Box(150, 30, 500, 70, "Укажите имя!");
-	al_box_name->labelsize(20);
-	al_box_name->box(FL_UP_BOX);
-	al_box_name->color(FL_RED);
-	al_box_name->hide();
+	al_box* al_box_name = new al_box(150, 30, 500, 70, "Укажите имя!");
+	Data.alrt_name = al_box_name;
 
-	Fl_Box* al_NoSuchFile = new Fl_Box(150, 30, 500, 70, "По указанному пути файл не найден!");
-	al_NoSuchFile->labelsize(20);
-	al_NoSuchFile->box(FL_UP_BOX);
-	al_NoSuchFile->color(FL_RED);
-	al_NoSuchFile->hide();
-
+	al_box* al_NoSuchFile = new al_box(150, 30, 500, 70, "По указанному пути файл не найден!");
 	Data.alrt_NoFile = al_NoSuchFile;
 }
 

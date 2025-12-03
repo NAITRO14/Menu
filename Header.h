@@ -1,50 +1,50 @@
 ﻿#pragma once
 #include "includes.h"
 #include "structs.h"
+#include "widgetsClasses.h"
 //тут опианны классы и структуры
 
 class card;
 extern vector<card*> cards;
 
+//тело карточки
 class cardBut : public Fl_Button
 {
 public:
-	cardBut(int x, int y, int w, int h, const char* l):
-		Fl_Button(x, y, w, h, l) 
+	cardBut(int x, int y, int w, int h, const char* l) :
+		Fl_Button(x, y, w, h, l)
 	{
 		color(FL_GREEN);
 		box(FL_UP_BOX);
-		
+
 	}
 
 	void del();
 
 	int handle(int event) override {
-		if (event == FL_PUSH && Fl::event_button() == 3) 
+		if (event == FL_PUSH && Fl::event_button() == 3)
 		{
 			del();
 			mens.mainWin->parent()->redraw();
-			return 1; 
+			return 1;
 		}
 		return Fl_Button::handle(event);
 	}
 	friend class card;
 
-
 };
 
+//скелет карточки
 class card
 {
 	string path;
 	string name;
-	
+	int x, y;
 
 	cardBut* cardBody;
 	
-	
-
 public:
-	int x, y;
+	
 	static int posX, posY;
 	static int cardsCount;
 	card(string p, string n);

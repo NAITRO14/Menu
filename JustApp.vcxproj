@@ -134,6 +134,7 @@
     <ClInclude Include="widgets.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="includes.h" />
+    <ClInclude Include="widgetsClasses.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
