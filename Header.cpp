@@ -7,8 +7,9 @@ inline void open_file(Fl_Widget* w, void* data)
 
 	string line = st->c_str();
 
-	thread opening([line]() {system(line.c_str()); });
+	thread opening([line]() {int s = system(line.c_str()); cout << s << endl; });
 	opening.detach();
+
 }
 
 card::card(string p, string n)

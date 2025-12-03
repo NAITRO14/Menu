@@ -12,8 +12,8 @@ inline void newFile()
 {
 	Fl_Group* nF = new Fl_Group(0, 0, 800, 600);
 
-	Fl_Input* inp_path = new Fl_Input(300, 250, 200, 50, "Путь к файлу");
-	Fl_Input* inp_name = new Fl_Input(300, 310, 200, 50, "Название карточки");
+	Fl_Input* inp_path = new Fl_Input(100, 250, 200, 30, "Путь к файлу");
+	Fl_Input* inp_name = new Fl_Input(500, 250, 200, 30, "Название карточки");
 
 	inp_path->when(FL_WHEN_ENTER_KEY);
 	inp_path->callback(createCard, nullptr);
@@ -22,7 +22,7 @@ inline void newFile()
 	inp_name->callback(createCard, nullptr);
 
 
-	button* Do = new button(530, 270, 100, 50, "Создать");
+	button* Do = new button(350, 451, 100, 30, "Создать");
 	button* back = new button(10, 540, 100, 50, "Назад");
 
 	Data.path = inp_path;
