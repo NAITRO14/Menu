@@ -123,18 +123,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Header.cpp" />
+    <ClCompile Include="card.cpp" />
     <ClCompile Include="main.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="alerts.h" />
     <ClInclude Include="functions.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="widgets.h" />
-    <ClInclude Include="Header.h" />
+    <ClInclude Include="card.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="widgetsClasses.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

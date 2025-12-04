@@ -1,8 +1,5 @@
 ﻿#pragma once
-#include "includes.h"
-#include "Header.h"
 #include "functions.h"
-#include "structs.h"
 int card::cardsCount = 0;
 
 menues mens;
@@ -16,19 +13,21 @@ inline void newFile()
 	Fl_Input* inp_name = new Fl_Input(500, 250, 200, 30, "Название карточки");
 
 	inp_path->when(FL_WHEN_ENTER_KEY);
-	inp_path->callback(createCard, nullptr);
+	inp_path->callback(card::createCard, nullptr);
 
 	inp_name->when(FL_WHEN_ENTER_KEY);
-	inp_name->callback(createCard, nullptr);
+	inp_name->callback(card::createCard, nullptr);
 
 
-	button* Do = new button(350, 451, 100, 30, "Создать");
+	button* Do = new button(320, 451, 100, 30, "Создать");
+	folder_but* fldr = new folder_but(430, 451, 50, 30, "Папка");
+
 	button* back = new button(10, 540, 100, 50, "Назад");
 
 	Data.path = inp_path;
 	Data.name = inp_name;
 
-	Do->callback(createCard, nullptr);
+	Do->callback(card::createCard, nullptr);
 	back->callback(showNewMenu, nullptr);
 
 	nF->end();
@@ -53,12 +52,19 @@ inline void alertsBoxes()
 {
 	al_box* al_box_path = new al_box(150, 30, 500, 70, "Укажите путь!");
 	Data.alrt_path = al_box_path;
+	alrts::alrt_path = al_box_path;
 
 	al_box* al_box_name = new al_box(150, 30, 500, 70, "Укажите имя!");
 	Data.alrt_name = al_box_name;
+	alrts::alrt_name = al_box_name;
 
 	al_box* al_NoSuchFile = new al_box(150, 30, 500, 70, "По указанному пути файл не найден!");
 	Data.alrt_NoFile = al_NoSuchFile;
+	alrts::alrt_NoFile = al_NoSuchFile;
+
+	al_box* al_alreadyHave = new al_box(150, 30, 500, 70, "Этот файл уже добавлен в программу!");
+	Data.alrt_alreadyHave = al_alreadyHave;
+
 
 	al_box* al_openError = new al_box(175, 480, 450, 75, "Ошибка во время открытия файла!");
 	Data.alrt_operErr = al_openError;
