@@ -1,5 +1,13 @@
 ﻿#include "card.h"
 
+bool FolderExists(const char* folderPath) {
+	DWORD attribs = GetFileAttributesA(folderPath);
+	if (attribs == INVALID_FILE_ATTRIBUTES) {
+		return false; // Папка не существует
+	}
+	return (attribs & FILE_ATTRIBUTE_DIRECTORY) != 0; // Истина, если это папка
+}
+
 vector<card*> cards;
 
 card::card(string p, string n)
@@ -57,35 +65,30 @@ string card::get_path()
 
 void card::createCard(Fl_Widget* w, void* data)
 {
+	SetConsoleOutputCP(CP_UTF8);
+
+	string tmp = inps::path->value();
 	//Обработка ошибок
 
 	//путь не указан
-	if (strlen(Data.path->value()) == 0)
+	if (strlen(inps::path->value()) == 0)
 	{
 		cout << "Ошибка. Путь не указан" << endl;
 		Fl::add_timeout(0.1, showPathAlert, nullptr);
 		return;
 	}
 	//имя не указано
-	if (strlen(Data.name->value()) == 0)
+	if (strlen(inps::name->value()) == 0)
 	{
 		cout << "Ошибка. Имя не указано" << endl;
 		Fl::add_timeout(0.1, showNameAlert, nullptr);
 		return;
 	}
 
-	//файл не найден
-	ifstream file(Data.path->value());
-	if (!file.good())
-	{
-		cout << "Не удалось найти файл!" << endl;
-		Fl::add_timeout(0.1, showNoFileAlert, nullptr);
-		return;
-	}
-
+	
 	for (short i = 0; i < cards.size(); i++)
 	{
-		if (strcmp(cards[i]->get_path().c_str(), Data.path->value()) == 0)
+		if (strcmp(cards[i]->get_path().c_str(), inps::path->value()) == 0)
 		{
 			cout << "Ссылка на такой файл уже есть!" << endl;
 			Fl::add_timeout(0.1, ShowAlreadyHere, nullptr);
@@ -93,7 +96,34 @@ void card::createCard(Fl_Widget* w, void* data)
 		}
 	}
 
-	card* crd = new card(Data.path->value(), Data.name->value());
+	
+	if (Data::mode == 0)
+	{
+		tmp = "\"" + tmp + "\"";
+		//файл не найден
+		ifstream file(inps::path->value());
+		if (!file.good())
+		{
+			cout << "Не удалось найти файл!" << endl;
+			Fl::add_timeout(0.1, showNoFileAlert, nullptr);
+			return;
+		}
+	}
+	else
+	{
+		tmp = inps::path->value();
+		tmp = "explorer \"" + tmp + "\"";
+		
+		
+		/*if (!FolderExists(tmp.c_str()))
+		{
+			cout << "Папка не обнаружена!" << endl;
+			Fl::add_timeout(0.1, showNoFileAlert, nullptr);
+			return;
+		}*/
+	}
+
+	card* crd = new card(tmp, inps::name->value());
 	mens.mainWin->add(crd->get_body());
 
 	cards.push_back(crd);
@@ -104,12 +134,11 @@ void card::open_file(Fl_Widget* w, void* data)
 	string* st = (string*)data;
 
 	string line = st->c_str();
-	line = "\"" + line + "\"";
+
 
 	thread opening([line]()
 		{
 			int s = system(line.c_str());
-			cout << s << endl;
 
 			if (s)
 			{
