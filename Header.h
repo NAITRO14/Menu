@@ -16,6 +16,7 @@ public:
 	{
 		color(FL_GREEN);
 		box(FL_UP_BOX);
+		visible_focus(0);
 
 	}
 

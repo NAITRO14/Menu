@@ -59,6 +59,9 @@ inline void alertsBoxes()
 
 	al_box* al_NoSuchFile = new al_box(150, 30, 500, 70, "По указанному пути файл не найден!");
 	Data.alrt_NoFile = al_NoSuchFile;
+
+	al_box* al_openError = new al_box(175, 480, 450, 75, "Ошибка во время открытия файла!");
+	Data.alrt_operErr = al_openError;
 }
 
 

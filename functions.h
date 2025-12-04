@@ -39,8 +39,38 @@ inline void showNoFileAlert(void* data)
 	Data.alrt_NoFile->show();
 	Fl::add_timeout(3, hideNoFileAlert, nullptr);
 }
+
+inline void ShowOpenErrorAlert(void* data)
+{
+	Data.alrt_operErr->show();
+	Fl::add_timeout(3, HideOpenErrorAlert, nullptr);
+}
+
+inline void HideOpenErrorAlert(void* data)
+{
+	Data.alrt_operErr->show();
+}
 //алерты
 //====================================
+
+inline void open_file(Fl_Widget* w, void* data)
+{
+	string* st = (string*)data;
+
+	string line = st->c_str();
+
+	thread opening([line]()
+		{
+			int s = system(line.c_str());
+			if (s)
+			{
+				Fl::add_timeout(0.1, ShowOpenErrorAlert, nullptr);
+			}
+
+		});
+	opening.detach();
+
+}
 
 inline void showNewMenu(Fl_Widget* w, void* data)
 {

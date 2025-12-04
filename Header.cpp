@@ -1,17 +1,8 @@
 ﻿#include "Header.h"
 vector<card*> cards;
 
-inline void open_file(Fl_Widget* w, void* data)
-{
-	string* st = (string*)data;
 
-	string line = st->c_str();
-
-	thread opening([line]() {int s = system(line.c_str()); cout << s << endl; });
-	opening.detach();
-
-}
-
+inline void open_file(Fl_Widget* w, void* data);
 card::card(string p, string n)
 {
 	path = p;

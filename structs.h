@@ -10,6 +10,7 @@ struct helpData
 	al_box* alrt_path;
 	al_box* alrt_name;
 	al_box* alrt_NoFile;
+	al_box* alrt_operErr;
 };
 extern helpData Data;
 
