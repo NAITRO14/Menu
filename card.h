@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "alerts.h"
+#include "converts.h"
 
 //тут опианны классы и структуры
 

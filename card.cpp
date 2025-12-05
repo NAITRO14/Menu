@@ -1,12 +1,23 @@
 ﻿#include "card.h"
 
-bool FolderExists(const char* folderPath) {
-	DWORD attribs = GetFileAttributesA(folderPath);
+#ifdef _UNICODE
+#define tstring std::wstring
+#else
+#define tstring std::string
+#endif
+
+bool FolderExists(const wchar_t* wpath) 
+{
+	// Проверяем существование
+	DWORD attribs = GetFileAttributesW(wpath);
+	delete[] wpath;
+
 	if (attribs == INVALID_FILE_ATTRIBUTES) {
-		return false; // Папка не существует
+		return false;
 	}
-	return (attribs & FILE_ATTRIBUTE_DIRECTORY) != 0; // Истина, если это папка
+	return (attribs & FILE_ATTRIBUTE_DIRECTORY) != 0;
 }
+
 
 vector<card*> cards;
 
@@ -68,6 +79,7 @@ void card::createCard(Fl_Widget* w, void* data)
 	SetConsoleOutputCP(CP_UTF8);
 
 	string tmp = inps::path->value();
+
 	//Обработка ошибок
 
 	//путь не указан
@@ -112,15 +124,18 @@ void card::createCard(Fl_Widget* w, void* data)
 	else
 	{
 		tmp = inps::path->value();
-		tmp = "explorer \"" + tmp + "\"";
-		
-		
-		/*if (!FolderExists(tmp.c_str()))
+
+		wstring line = UTF8ToWide(tmp);
+
+		if (FolderExists(line.c_str()) == false)
 		{
 			cout << "Папка не обнаружена!" << endl;
 			Fl::add_timeout(0.1, showNoFileAlert, nullptr);
 			return;
-		}*/
+		}
+
+
+		tmp = "\"" + WideToUTF8(line) + "\"";
 	}
 
 	card* crd = new card(tmp, inps::name->value());
@@ -138,12 +153,19 @@ void card::open_file(Fl_Widget* w, void* data)
 
 	thread opening([line]()
 		{
-			int s = system(line.c_str());
-
-			if (s)
+			try
+			{
+				int s = system(line.c_str());
+				if (s != 0)
+				{
+					throw s;
+				}
+			}
+			catch (int er)
 			{
 				Fl::add_timeout(0.1, ShowOpenErrorAlert, nullptr);
 			}
+			
 
 		});
 	opening.detach();

@@ -44,6 +44,9 @@
     <ClInclude Include="alerts.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="converts.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
